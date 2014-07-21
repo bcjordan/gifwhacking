@@ -3,8 +3,14 @@
 angular.module 'gifwhackingApp'
 .controller 'NavbarCtrl', ($scope, $location, Auth) ->
   $scope.menu = [
-    title: 'Home'
-    link: '/'
+    {
+     title: 'Home',
+     link: '/'
+    }
+    {
+      title: 'Play Now',
+      link: '/game'
+    }
   ]
   $scope.isCollapsed = true
   $scope.isLoggedIn = Auth.isLoggedIn
