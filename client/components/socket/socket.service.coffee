@@ -7,7 +7,7 @@ angular.module 'gifwhackingApp'
   retryInterval = 5000
   retryTimer = undefined
   clearInterval retryTimer
-  ioSocket = io.connect '',
+  ioSocket = io.connect 'http://gifwhacking-gifwhacking.rhcloud.com/:8000',
     'force new connection': true
     'max reconnection attempts': Infinity
     'reconnection limit': 10 * 1000
