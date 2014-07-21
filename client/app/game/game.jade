@@ -12,16 +12,16 @@ header#banner.hero-unit
   .row
     .col-lg-12
       h1 Looking for New Players
-      ul.nav.nav-tabs.nav-stacked.col-lg-12
+      ul.nav.nav-tabs.nav-stacked.col-lg-12.game-list
         li(ng-repeat='game in gamesCache | filter:{state:"open"}' ng-include='"components/games/listpreview.html"')
 
       h1 Games in Progress
       .clear
-      ul.nav.nav-tabs.nav-stacked.col-lg-12
+      ul.nav.nav-tabs.nav-stacked.col-lg-12.game-list
         li(ng-repeat='game in gamesCache | filter:{state:"open"}' ng-include='"components/games/listpreview.html"')
 
       h1 Past Games
-      ul.nav.nav-tabs.nav-stacked.col-lg-12
+      ul.nav.nav-tabs.nav-stacked.col-lg-12.game-list
         li(ng-repeat='game in gamesCache | filter:{state:"open"}' ng-include='"components/games/listpreview.html"')
 
 
