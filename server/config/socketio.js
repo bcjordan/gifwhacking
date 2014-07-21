@@ -38,8 +38,13 @@ module.exports = function (socketio) {
   // }));
 
   socketio.on('connection', function (socket) {
-    socket.address = socket.handshake.address.address + ':' +
-                     socket.handshake.address.port;
+    var handshake = socket.handshake;
+    var handshakeAddress = handshake.address;
+
+    var socketAddress = handshakeAddress ? handshakeAddress.address : handshake.headers['x-forwarded-for'];
+    var socketPort = handshakeAddress ? handshakeAddress.port : handshake.headers['x-forwarded-port'];
+
+    socket.address = socketAddress + ':' + socketPort;
     socket.connectedAt = new Date();
 
     // Call onDisconnect.
