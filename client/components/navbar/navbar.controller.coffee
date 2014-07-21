@@ -5,11 +5,11 @@ angular.module 'gifwhackingApp'
   $scope.menu = [
     {
      title: 'Home',
-     link: '/'
+     link: 'main'
     }
     {
       title: 'Play Now',
-      link: '/game'
+      link: 'game'
     }
   ]
   $scope.isCollapsed = true
