@@ -2,7 +2,8 @@ div(ng-include='"components/navbar/navbar.html"')
 
 header#banner.hero-unit
   .container
-    h1 Waiting for an opponent...
-    p.lead Prepare yourself
+    h1 Current Games
+    p.lead
 
-    button.btn.btn-primary.btn-lg(ng-click='') Just start!
+    .ui-view
+        button.btn.btn-primary.btn-lg(ui-sref='game.waiting') Just start!

@@ -5,3 +5,8 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
     url: '/game'
     templateUrl: 'app/game/game.html'
     controller: 'GameCtrl'
+
+  $stateProvider.state 'game.waiting',
+    url: '/waiting'
+    templateUrl: 'app/game/waiting.html'
+    controller: 'GameCtrl'
