@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gifwhackingApp').controller 'GameCtrl', ($scope, $http, socket) ->
+angular.module('gifwhackingApp').controller 'GameCtrl', ($scope, $http, socket, $state) ->
   $scope.message = 'Hello'
 
   $scope.gamesCache = []

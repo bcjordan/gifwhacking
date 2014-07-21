@@ -9,7 +9,7 @@ angular.module 'gifwhackingApp'
     }
     {
       title: 'Play Now',
-      state: 'game'
+      state: 'game.list.waiting'
     }
   ]
   $scope.isCollapsed = true

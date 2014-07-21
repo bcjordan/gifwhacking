@@ -1,0 +1,4 @@
+.container
+  .row(ng-repeat="game in gamesCache" ng-show="game._id == gameId")
+    .col-lg-12
+      h1 Playing {{game.name}}

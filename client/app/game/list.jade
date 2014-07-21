@@ -1,12 +1,10 @@
-div(ng-include='"components/navbar/navbar.html"')
-
 header#banner.hero-unit
   .container
     h1 Find a Game
     p.lead
 
     .ui-view
-        button.btn.btn-primary.btn-lg(ui-sref='game.waiting') Play Now
+        button.btn.btn-primary.btn-lg(ui-sref='game.list.waiting') Play Now
 
 .container
   .row
@@ -18,11 +16,11 @@ header#banner.hero-unit
       h1 Games in Progress
       .clear
       ul.nav.nav-tabs.nav-stacked.col-lg-12.game-list
-        li(ng-repeat='game in gamesCache | filter:{state:"open"}' ng-include='"components/games/listpreview.html"')
+        li(ng-repeat='game in gamesCache | filter:{state:"in progress"}' ng-include='"components/games/listpreview.html"')
 
       h1 Past Games
       ul.nav.nav-tabs.nav-stacked.col-lg-12.game-list
-        li(ng-repeat='game in gamesCache | filter:{state:"open"}' ng-include='"components/games/listpreview.html"')
+        li(ng-repeat='game in gamesCache | filter:{state:"ended"}' ng-include='"components/games/listpreview.html"')
 
 
   form.thing-form
