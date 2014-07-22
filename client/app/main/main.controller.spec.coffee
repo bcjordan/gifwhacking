@@ -3,8 +3,8 @@
 describe 'Controller: MainCtrl', ->
 
   # load the controller's module
-  beforeEach module 'gifwhackingApp' 
-  beforeEach module 'socketMock' 
+  beforeEach module 'gifwhackingApp'
+  beforeEach module 'socketMock'
 
   MainCtrl = undefined
   scope = undefined
