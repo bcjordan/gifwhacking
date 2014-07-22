@@ -2,3 +2,14 @@
   .row(ng-repeat="game in gamesCache" ng-show="game._id == gameId")
     .col-lg-12
       h1 Playing {{game.name}}
+
+    .row
+      form.message-form
+        label Enter your gif search term
+        p.input-group
+          input.form-control(type='text', placeholder='Add a new message here.', ng-model='newMessage')
+          span.input-group-btn
+            button.btn.btn-primary(type='submit', ng-click='addMessage()') Add New
+
+      .panel.panel-default(ng-repeat="message in game.messages")
+        .panel-body {{message.text}}

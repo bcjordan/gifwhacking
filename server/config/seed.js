@@ -22,8 +22,21 @@ Game.find({}).remove(function() {
       name: 'Hey, trying to game over heah!',
       info: 'Me too',
       state: 'in progress'
+  }, function() {
+    Game.findOne({name: 'Game 1'},
+      function (err, game) {
+        game.messages.push(
+            { text: 'a game message' }
+            , { text: 'another game message' }
+            , { text: 'a great game message' }
+            , { text: 'a good game message' }
+        );
+        game.save();
+        console.log(game);
+      });
   });
 });
+
 
 Thing.find({}).remove(function() {
   Thing.create({

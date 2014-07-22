@@ -19,8 +19,25 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
   $stateProvider.state 'game.playing',
     url: '/game/:id/playing'
     templateUrl: 'app/game/playing.html'
-    controller: ($scope, $stateParams) ->
+    controller: ($scope, $stateParams, $http, socket) ->
       $scope.gameId = $stateParams.id
+
+      $http.get('/api/games').success (games) ->
+        $scope.gamesCache = games
+        socket.syncUpdates 'game', $scope.gamesCache
+
+      $scope.addMessage = ->
+        return if $scope.newMessage is ''
+        $http.patch '/api/game',
+          id: $scope.gameId
+          name: $scope.newMessage,
+          gameId: $scope.gameId
+
+        $scope.newMessage = ''
+
+      $scope.$on '$destroy', ->
+        socket.unsyncUpdates 'message'
+
 
   $stateProvider.state 'game.watching',
     url: '/game/:id/watching'
