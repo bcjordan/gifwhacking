@@ -1,9 +1,6 @@
 .container
-  .row(ng-repeat="game in gamesCache" ng-show="game._id == gameId")
+  .row
     .col-lg-12
-      h1 Playing {{game.name}}
-
-    .row
       form.message-form
         label Enter your gif search terms
         p.input-group
@@ -11,5 +8,8 @@
           span.input-group-btn
             button.btn.btn-primary(type='submit', ng-click='playTerms()') Play Terms
 
+  .row(ng-repeat="game in gamesCache" ng-show="game._id == gameId")
+    .col-lg-12
+      h1 Playing {{game.name}}
       .panel.panel-default(ng-repeat="message in game.messages.slice().reverse()")
         .panel-body {{message.text}}
