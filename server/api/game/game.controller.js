@@ -42,6 +42,20 @@ exports.update = function(req, res) {
   });
 };
 
+// Adds a message to an existing game in the DB.
+exports.createMessage = function(req, res) {
+  if(req.body._id) { delete req.body._id; }
+  Game.findById(req.params.id, function (err, game) {
+    if (err) { return handleError(res, err); }
+    if(!game) { return res.send(404); }
+    game.messages.push({ text: req.body.message });
+    game.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, game);
+    });
+  });
+};
+
 // Deletes a game from the DB.
 exports.destroy = function(req, res) {
   Game.findById(req.params.id, function (err, game) {
