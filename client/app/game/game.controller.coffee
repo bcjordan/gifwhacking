@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gifwhackingApp').controller 'GameCtrl', ($scope, $http, socket, $state) ->
+angular.module('gifwhackingApp').controller 'GameCtrl', [ '$scope', '$http', 'socket', '$state', ($scope, $http, socket, $state) ->
   $scope.gamesCache = []
   $scope.newGame = ''
 
@@ -22,3 +22,4 @@ angular.module('gifwhackingApp').controller 'GameCtrl', ($scope, $http, socket, 
   $scope.$on '$destroy', ->
     socket.unsyncUpdates 'game'
 
+]

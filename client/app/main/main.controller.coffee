@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'gifwhackingApp'
-.controller 'MainCtrl', ($scope, $http, socket) ->
+.controller 'MainCtrl', ['$scope', '$http', 'socket', ($scope, $http, socket) ->
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->
@@ -20,3 +20,4 @@ angular.module 'gifwhackingApp'
 
   $scope.$on '$destroy', ->
     socket.unsyncUpdates 'thing'
+]

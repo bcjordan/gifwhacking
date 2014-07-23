@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'gifwhackingApp'
-.controller 'AdminCtrl', ($scope, $http, Auth, User) ->
+.controller 'AdminCtrl', ['$scope', '$http', 'Auth', 'User', ($scope, $http, Auth, User) ->
 
   $http.get '/api/users'
   .success (users) ->
@@ -11,3 +11,4 @@ angular.module 'gifwhackingApp'
     User.remove id: user._id
     angular.forEach $scope.users, (u, i) ->
       $scope.users.splice i, 1 if u is user
+]

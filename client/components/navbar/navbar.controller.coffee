@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'gifwhackingApp'
-.controller 'NavbarCtrl', ($scope, $location, Auth) ->
+.controller 'NavbarCtrl', ['$scope', '$location', 'Auth', ($scope, $location, Auth) ->
   $scope.menu = [
     {
      title: 'Home',
@@ -23,3 +23,4 @@ angular.module 'gifwhackingApp'
 
   $scope.isActive = (route) ->
     route is $location.path()
+]

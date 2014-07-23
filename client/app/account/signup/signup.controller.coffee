@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'gifwhackingApp'
-.controller 'SignupCtrl', ($scope, Auth, $location, $window) ->
+.controller 'SignupCtrl', ['$scope', 'Auth', '$location', '$window', ($scope, Auth, $location, $window) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->
@@ -28,3 +28,4 @@ angular.module 'gifwhackingApp'
 
   $scope.loginOauth = (provider) ->
     $window.location.href = '/auth/' + provider
+]

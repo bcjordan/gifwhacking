@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'gifwhackingApp'
-.controller 'SettingsCtrl', ($scope, User, Auth) ->
+.controller 'SettingsCtrl', ['$scope', 'User', 'Auth', ($scope, User, Auth) ->
   $scope.errors = {}
   $scope.changePassword = (form) ->
     $scope.submitted = true
@@ -15,3 +15,4 @@ angular.module 'gifwhackingApp'
         form.password.$setValidity 'mongoose', false
         $scope.errors.other = 'Incorrect password'
         $scope.message = ''
+]

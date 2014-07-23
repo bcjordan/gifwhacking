@@ -19,7 +19,7 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
   $stateProvider.state 'game.playing',
     url: '/game/:id/playing'
     templateUrl: 'app/game/playing.html'
-    controller: ($scope, $stateParams, $http, socket) ->
+    controller: ['$scope', '$stateParams', '$http', 'socket', ($scope, $stateParams, $http, socket) ->
       $scope.newTerms = {}
       $scope.gameId = $stateParams.id
 
@@ -36,6 +36,7 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
 
       $scope.$on '$destroy', ->
         socket.unsyncUpdates 'message'
+    ]
 
 
   $stateProvider.state 'game.watching',
