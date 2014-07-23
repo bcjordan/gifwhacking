@@ -5,11 +5,11 @@
 
     .row
       form.message-form
-        label Enter your gif search term
+        label Enter your gif search terms
         p.input-group
-          input.form-control(type='text', placeholder='Add a new message here.', ng-model='newMessage')
+          input.form-control(type='text', placeholder='Add a new search phrase here', ng-model='newTerms.text')
           span.input-group-btn
-            button.btn.btn-primary(type='submit', ng-click='addMessage()') Add New
+            button.btn.btn-primary(type='submit', ng-click='playTerms()') Play Terms
 
-      .panel.panel-default(ng-repeat="message in game.messages")
+      .panel.panel-default(ng-repeat="message in game.messages.slice().reverse()")
         .panel-body {{message.text}}

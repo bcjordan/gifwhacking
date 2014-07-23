@@ -20,20 +20,19 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
     url: '/game/:id/playing'
     templateUrl: 'app/game/playing.html'
     controller: ($scope, $stateParams, $http, socket) ->
+      $scope.newTerms = {}
       $scope.gameId = $stateParams.id
 
       $http.get('/api/games').success (games) ->
         $scope.gamesCache = games
         socket.syncUpdates 'game', $scope.gamesCache
 
-      $scope.addMessage = ->
-        return if $scope.newMessage is ''
-        $http.patch '/api/game',
-          id: $scope.gameId
-          name: $scope.newMessage,
-          gameId: $scope.gameId
+      $scope.playTerms = ->
+        return if $scope.newTerms.text is ''
+        $http.put '/api/games/' + $scope.gameId + '/message',
+          message: $scope.newTerms.text
 
-        $scope.newMessage = ''
+        $scope.newTerms.text = ''
 
       $scope.$on '$destroy', ->
         socket.unsyncUpdates 'message'
