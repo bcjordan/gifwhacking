@@ -20,6 +20,25 @@ exports.show = function(req, res) {
   });
 };
 
+// Get a single game
+exports.join = function(req, res) {
+  if(req.body._id) { delete req.body._id; }
+  Game.findById(req.params.id, function (err, game) {
+    if (err) { return handleError(res, err); }
+    if(!game) { return res.send(404); }
+    game.players.push({
+      userId: req.body.userId
+    });
+    game.save(function (err) {
+      if (err) { return handleError(res, err); }
+    });
+  });
+  Game.find(function (err, games) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, games);
+  });
+};
+
 // Creates a new game in the DB.
 exports.create = function(req, res) {
   Game.create(req.body, function(err, game) {

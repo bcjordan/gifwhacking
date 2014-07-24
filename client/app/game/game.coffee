@@ -19,11 +19,13 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
   $stateProvider.state 'game.playing',
     url: '/game/:id/playing'
     templateUrl: 'app/game/playing.html'
-    controller: ['$scope', '$stateParams', '$http', 'socket', ($scope, $stateParams, $http, socket) ->
+    controller: ['$scope', '$stateParams', '$http', 'socket', 'Auth', ($scope, $stateParams, $http, socket, Auth) ->
       $scope.newTerms = {}
       $scope.gameId = $stateParams.id
 
-      $http.get('/api/games').success (games) ->
+      $http.put '/api/games/' + $scope.gameId + '/join',
+        userId: Auth.getCurrentUser
+      .success (games) ->
         $scope.gamesCache = games
         socket.syncUpdates 'game', $scope.gamesCache
 
@@ -31,16 +33,19 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
         return if $scope.newTerms.text is ''
         $http.put '/api/games/' + $scope.gameId + '/message',
           message: $scope.newTerms.text
-
         $scope.newTerms.text = ''
 
       $scope.$on '$destroy', ->
         socket.unsyncUpdates 'message'
     ]
-
-
   $stateProvider.state 'game.watching',
     url: '/game/:id/watching'
     templateUrl: 'app/game/watching.html'
-    controller: ($scope, $stateParams) ->
+    controller: ['$scope', '$stateParams', '$http', 'socket', 'Auth', ($scope, $stateParams, $http, socket, Auth) ->
+      $scope.newTerms = {}
       $scope.gameId = $stateParams.id
+
+      $http.get('/api/games').success (games) ->
+        $scope.gamesCache = games
+        socket.syncUpdates 'game', $scope.gamesCache
+    ]
