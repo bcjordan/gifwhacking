@@ -22,9 +22,11 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
     controller: ['$scope', '$stateParams', '$http', 'socket', 'Auth', ($scope, $stateParams, $http, socket, Auth) ->
       $scope.newTerms = {}
       $scope.gameId = $stateParams.id
+      $scope.getCurrentUser = Auth.getCurrentUser
 
       $http.put '/api/games/' + $scope.gameId + '/join',
-        userId: Auth.getCurrentUser
+        user:
+          _id: Auth.getCurrentUser.id_
       .success (games) ->
         $scope.gamesCache = games
         socket.syncUpdates 'game', $scope.gamesCache

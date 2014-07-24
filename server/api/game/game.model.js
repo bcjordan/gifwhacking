@@ -9,7 +9,8 @@ var MessageSchema = new Schema({
 });
 
 var PlayerSchema = new Schema({
-  userId: Schema.Types.ObjectId
+  userId: Schema.Types.ObjectId,
+  name: String
 });
 
 var GameSchema = new Schema({

@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Game = require('./game.model');
+var User = require('../user/user.model');
 
 // Get list of games
 exports.index = function(req, res) {
@@ -20,17 +21,17 @@ exports.show = function(req, res) {
   });
 };
 
-// Get a single game
+// Join a game
 exports.join = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Game.findById(req.params.id, function (err, game) {
     if (err) { return handleError(res, err); }
     if(!game) { return res.send(404); }
-    game.players.push({
-      userId: req.body.userId
-    });
-    game.save(function (err) {
+    var userId = req.user._id;
+    User.findById(userId, function(err, user) {
       if (err) { return handleError(res, err); }
+      if(!user) { return res.send(404); }
+      find_or_create_player(game, user, res);
     });
   });
   Game.find(function (err, games) {
@@ -38,6 +39,28 @@ exports.join = function(req, res) {
     return res.json(200, games);
   });
 };
+
+
+function find_or_create_player(game, user, res) {
+  var exists = false;
+  for (var i = 0; i < game.players.length; i++) {
+    if (game.players[i].userId.toString() == user._id.toString()) {
+      game.players[i].name = user.name;
+      exists = true;
+    }
+  }
+  if (!exists) {
+    game.players.push({
+      userId: user._id,
+      name: user.name
+    });
+  }
+  game.save(function (err) {
+    if (err) {
+      return handleError(res, err);
+    }
+  });
+}
 
 // Creates a new game in the DB.
 exports.create = function(req, res) {

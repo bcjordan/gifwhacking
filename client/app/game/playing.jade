@@ -2,14 +2,19 @@
   .row
     .col-lg-12
       form.message-form
-        label Enter your gif search terms {{gameId}}
+        label Enter your gif search terms {{ getCurrentUser().name }}
         p.input-group
           input.form-control(type='text', placeholder='Add a new search phrase here', ng-model='newTerms.text')
           span.input-group-btn
             button.btn.btn-primary(type='submit', ng-click='playTerms()') Play Terms
 
   .row(ng-repeat="game in gamesCache" ng-show="game._id == gameId")
-    .col-lg-12
+    .col-lg-8
       h1 Playing {{game.name}}
       .panel.panel-default(ng-repeat="message in game.messages.slice().reverse()")
         .panel-body {{message.text}}
+    .col-lg-4
+      h2 {{game.players.length}} Players
+      ul
+        li(ng-repeat="player in game.players")
+          .span {{player.name}}
