@@ -13,6 +13,8 @@
       h1 Playing {{game.name}}
       .panel.panel-default(ng-repeat="message in game.messages.slice().reverse()")
         .panel-body {{message.text}}
+        .panel-body(ng-show="message.gif != null")
+          img(src='{{message.gif}}')
     .col-lg-4
       h2 {{game.players.length}} Players
       ul

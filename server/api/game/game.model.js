@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
     UserSchema = require('../user/user.model.js');
 
 var MessageSchema = new Schema({
-  text: String
+  text: String,
+  gif: String
 });
 
 var PlayerSchema = new Schema({

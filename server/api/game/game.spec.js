@@ -3,6 +3,8 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
+var ImageFinder = require('./image_finder');
+var assert = require('assert');
 
 describe('GET /api/games', function() {
 
@@ -16,5 +18,15 @@ describe('GET /api/games', function() {
         res.body.should.be.instanceof(Array);
         done();
       });
+  });
+});
+
+describe('ImageFinder', function() {
+  it('should snag Google Image queries', function(done) {
+    ImageFinder.imageMe('fart', function(url) {
+      assert.notEqual(url, undefined);
+      assert.equal(true, url.indexOf('gif') != -1);
+      done();
+    });
   });
 });

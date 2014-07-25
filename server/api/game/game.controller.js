@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var Game = require('./game.model');
 var User = require('../user/user.model');
+var ImageFinder = require('./image_finder');
 
 // Get list of games
 exports.index = function(req, res) {
@@ -90,7 +91,12 @@ exports.createMessage = function(req, res) {
   Game.findById(req.params.id, function (err, game) {
     if (err) { return handleError(res, err); }
     if(!game) { return res.send(404); }
+    var index = game.messages.length;
     game.messages.push({ text: req.body.message });
+    ImageFinder.imageMe(req.body.message, function(url){
+      game.messages[index].gif = url;
+      game.save(function(err){});
+    });
     game.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, game);
