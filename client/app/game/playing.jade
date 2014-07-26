@@ -12,9 +12,13 @@
     .col-lg-8
       h1 Playing {{game.name}}
       .panel.panel-default(ng-repeat="message in game.messages.slice().reverse()")
-        .panel-body {{message.text}}
+        .panel-heading
+          .game-gif-query(data-fittext) {{message.text}}
         .panel-body(ng-show="message.gif != null")
-          img(src='{{message.gif}}')
+          img.game-gif(src='{{message.gif}}')
+        .panel-body(ng-show="message.gif == null")
+          .spinner-container
+            div(style="line-height:50px;display:inline-block;width:30px;height:30px" us-spinner="{lines: 7, length: 40, width: 30, radius: 0, corners: 1, rotate: 0, direction: 1, color: '#000', speed: 1.6, trail: 52, shadow: false, hwaccel: false, className: 'spinner', zIndex: 2e9, top: '50%', left: '50%'}")
     .col-lg-4
       h2 {{game.players.length}} Players
       ul
