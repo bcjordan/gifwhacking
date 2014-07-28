@@ -34,7 +34,9 @@ angular.module('gifwhackingApp').config ($stateProvider) ->
       $scope.playTerms = ->
         return if $scope.newTerms.text is ''
         $http.put '/api/games/' + $scope.gameId + '/message',
-          message: $scope.newTerms.text
+          message: $scope.newTerms.text,
+          user:
+            _id: Auth.getCurrentUser.id_
         $scope.newTerms.text = ''
 
       $scope.$on '$destroy', ->

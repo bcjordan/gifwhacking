@@ -46,6 +46,7 @@ function find_or_create_player(game, user, res) {
   var exists = false;
   for (var i = 0; i < game.players.length; i++) {
     if (game.players[i].userId.toString() == user._id.toString()) {
+      // Update name
       game.players[i].name = user.name;
       exists = true;
     }
@@ -67,7 +68,11 @@ function find_or_create_player(game, user, res) {
 exports.create = function(req, res) {
   Game.create(req.body, function(err, game) {
     if(err) { return handleError(res, err); }
-    return res.json(201, game);
+    game.turnPlayerIndex = 0;
+    game.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, game);
+    });
   });
 };
 
@@ -93,10 +98,15 @@ exports.createMessage = function(req, res) {
     if(!game) { return res.send(404); }
     var index = game.messages.length;
     game.messages.push({ text: req.body.message });
-    ImageFinder.imageMe(req.body.message, function(url){
-      game.messages[index].gif = url;
-      game.save(function(err){});
-    });
+    if (game.players[game.turnPlayerIndex].userId.toString() == req.user._id.toString()) {
+      ImageFinder.imageMe(req.body.message, function(url){
+        game.messages[index].gif = url;
+        game.save(function(err){});
+      });
+      game.turnPlayerIndex = (game.turnPlayerIndex + 1) % game.players.length;
+    } else {
+      game.messages[index].text
+    }
     game.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, game);

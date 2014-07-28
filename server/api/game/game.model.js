@@ -19,7 +19,8 @@ var GameSchema = new Schema({
   info: String,
   state: String, // 'open', 'in progress', 'ended',
   messages: [MessageSchema],
-  players: [PlayerSchema]
+  players: [PlayerSchema],
+  turnPlayerIndex: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('Game', GameSchema);

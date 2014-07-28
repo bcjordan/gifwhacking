@@ -24,3 +24,4 @@
       ul
         li(ng-repeat="player in game.players")
           .span {{player.name}}
+          .span(ng-show="$index === game.turnPlayerIndex") Is current player

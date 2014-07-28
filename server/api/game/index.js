@@ -10,7 +10,7 @@ router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id/join', auth.isAuthenticated(), controller.join);
-router.put('/:id/message', controller.createMessage);
+router.put('/:id/message', auth.isAuthenticated(), controller.createMessage);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
